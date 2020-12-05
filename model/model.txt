@@ -1,0 +1,2 @@
+https://pan.baidu.com/s/1XNTf_k8zhFAVkiRSGIDDnQ  o617 
+download this model and put the model in seaship_detection/model
