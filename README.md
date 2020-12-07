@@ -24,9 +24,9 @@ For example,If received the following JSON format data:
 ```
 Each item of the JSON data is the detected ship category.<br/>
 The first sub-item (for example 'speed boat') means types of ships that detected. The next four sub-items (for example 70, 245, 157, 305) represent the coordinate positions of the upper left corner and the lower right corner of the detection frame.The last term (for example 0.9955564141273499) represents confidence.<br/>
-If the ship is not detected or an error occurs, an empty list is returned
+If the ship is not detected or an error occurs, an empty list is returned.
 ### model
-|  |  |
+| item | value |
 |--|--|
 |  **model name**|yolov3-tiny  |
 |  **classes**|6  |
