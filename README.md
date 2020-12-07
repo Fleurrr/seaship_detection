@@ -19,7 +19,7 @@ The server can run the following command In `flask` directory to open the detect
 ```
 python flask_sever.py
 ```
-The client receives the detection results by running the following commands:
+You can test in client port by running the following commands:
 ```
 python flask_client.py
 ```
