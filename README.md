@@ -1,6 +1,6 @@
 # seaship detection
 This project is used for the docking of seaship target detection model, including the seaship target detection model itself and related instructions.<br/>
-Created by **Ze Huang**.
+Created by **Ze Huang** and **Sloan**.
 
 ## **Usage**
 First, make sure you have installed **python 3.7** environment and downloaded this project repository.<br/>
