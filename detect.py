@@ -31,7 +31,7 @@ class Detect_ship(object):
         else:
             image = img_path
         (H, W) = image.shape[:2]
-        # µÃµ½ YOLOĞèÒªµÄÊä³ö²ã
+        # å¾—åˆ° YOLOéœ€è¦çš„è¾“å‡ºå±‚
         end2_time = time.time()
         ln = NET.getLayerNames()
         end3_time = time.time()
@@ -42,26 +42,26 @@ class Detect_ship(object):
         layerOutputs = NET.forward(ln)
         end4_time = time.time()
         print("forward net:", end4_time - end3_time)
-        # ÔÚÃ¿²ãÊä³öÉÏÑ­»·
+        # åœ¨æ¯å±‚è¾“å‡ºä¸Šå¾ªç¯
         for output in layerOutputs:
-            # ¶ÔÃ¿¸ö¼ì²â½øĞĞÑ­»·
+            # å¯¹æ¯ä¸ªæ£€æµ‹è¿›è¡Œå¾ªç¯
             for detection in output:
                 scores = detection[5:]
                 classID = np.argmax(scores)
                 confidence = scores[classID]
-                # ¹ıÂËµôÄÇĞ©ÖÃĞÅ¶È½ÏĞ¡µÄ¼ì²â½á¹û
+                # è¿‡æ»¤æ‰é‚£äº›ç½®ä¿¡åº¦è¾ƒå°çš„æ£€æµ‹ç»“æœ
                 if confidence > Detect_ship.CONF_THRESH:
-                    # ¿òºó½Ó¿òµÄ¿í¶ÈºÍ¸ß¶È
+                    # æ¡†åæ¥æ¡†çš„å®½åº¦å’Œé«˜åº¦
                     box = detection[0:4] * np.array([W, H, W, H])
                     (centerX, centerY, width, height) = box.astype("int")
-                    # ±ß¿òµÄ×óÉÏ½Ç
+                    # è¾¹æ¡†çš„å·¦ä¸Šè§’
                     x = int(centerX - (width / 2))
                     y = int(centerY - (height / 2))
-                    # ¸üĞÂ¼ì²â³öÀ´µÄ¿ò
+                    # æ›´æ–°æ£€æµ‹å‡ºæ¥çš„æ¡†
                     boxes.append([x, y, int(width), int(height)])
                     confidences.append(float(confidence))
                     classIDs.append(classID)
-        # ¼«´óÖµÒÖÖÆ
+        # æå¤§å€¼æŠ‘åˆ¶
         end5_time = time.time()
         idxs = cv2.dnn.NMSBoxes(boxes, confidences, Detect_ship.NMS_SCORE_THRESH, Detect_ship.NMS_THRESH)  # 0.2,0.3
         print("NMSBoxes:", time.time() - end5_time)
@@ -71,20 +71,12 @@ class Detect_ship(object):
                 nms_box.append([LABELS[classIDs[i]], boxes[i][0], boxes[i][1], boxes[i][0] + boxes[i][2],
                                 boxes[i][1] + boxes[i][3], confidences[i]])
 
-        sorted_boxes = sorted(nms_box, key=lambda x: x[1])  # °´×óÉÏ½Ç×ø±êx1´ÓĞ¡µ½´óÅÅĞò
+        sorted_boxes = sorted(nms_box, key=lambda x: x[1])  # æŒ‰å·¦ä¸Šè§’åæ ‡x1ä»å°åˆ°å¤§æ’åº
 
         print("sorted_boxes:", sorted_boxes)
-        for i, box in enumerate(sorted_boxes):
-            label, x1, y1, x2, y2, confidence = box
-            # ÔÚÔ­Í¼ÉÏ»æÖÆ±ß¿òºÍÀà±ğ
-            color = [int(c) for c in COLORS[classIDs[i]]]
-            cv2.rectangle(image, (x1, y1), (x2, y2), color, 2)
-            text = "{}:{:.3f}".format(label,confidence)
-            cv2.putText(image, text, (x1, y2 - 5), cv2.FONT_HERSHEY_SIMPLEX, 0.5, color, 1)
-        #cv2.imshow("frame", image)
     
 if __name__ == "__main__":
-    #¼ÓÔØÄ£ĞÍ
+    #åŠ è½½æ¨¡å‹
     CONFIG_PATH = 'yolov3-tiny-hz.cfg'
     WEIGHTS_PATH = 'model/yolov3-tiny-nofocalloss_best.weights'
     LABELS_PATH = 'hz_voc.names'
@@ -93,7 +85,7 @@ if __name__ == "__main__":
     NET = cv2.dnn.readNetFromDarknet(CONFIG_PATH, WEIGHTS_PATH)
     s1 = time.time()
     print('successfully load net:', time.time()-s1)
-    #Ñ­»·ÊäÈëÍ¼Æ¬
+    #å¾ªç¯è¾“å…¥å›¾ç‰‡
     stop_command='stop'
     while True:
         image_input=sys.stdin.readline().strip().split('\n')
