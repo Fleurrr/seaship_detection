@@ -26,7 +26,7 @@ python flask_client.py
 ## Details
 ### input
 Input JPG format image stream to be detected if you call the model locally.<br/>
-If you call the model by flask, the image input should be Base64 encoded string type.The ROI input is also a string type and set to format like 'x1, Y1, X2, Y2' if it is required, if not, set it to ' '. 
+If you call the model by flask, the image input should be Base64 encoded string type.The ROI input is also a string type and set to format like `'X1, Y1, X2, Y2'` if it is required, if not, set it to ' '. 
 ### output
 For each input image, a JSON format detection result is returned.
 For example,If received the following JSON format data **while call the model locally**:
